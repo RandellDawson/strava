@@ -1,5 +1,6 @@
-require('dotenv').config();
-const fetch = require('node-fetch');
+import dotenv from 'dotenv';
+dotenv.config();
+import fetch from 'node-fetch';
 
 const baseAPIUrl = 'https://www.strava.com/api/v3';
 const clientId = process.env.CLIENT_ID;
@@ -7,7 +8,6 @@ const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
 const App = () => {
-
   const getActivities = async () => {
     const accessToken = await reAuthorize();
     const activitiesRoute = `${baseAPIUrl}/athlete/activities?per_page=100&access_token=${accessToken}`;
@@ -22,7 +22,6 @@ const App = () => {
       return { id, name, localDateTime };
     });
     const warmupsAndCooldowns = activities.filter(({ name }) => name.endsWith('**'));
-    console.log(warmupsAndCooldowns)
     return warmupsAndCooldowns;
   };
 
