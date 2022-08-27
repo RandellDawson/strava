@@ -1,0 +1,22 @@
+{
+  "name": "strava",
+  "version": "1.0.0",
+  "description": "set of tools to get and update my Strava activities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RandellDawson/strava.git"
+  },
+  "author": "Randell Dawson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RandellDawson/strava/issues"
+  },
+  "homepage": "https://github.com/RandellDawson/strava#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  }
+}
