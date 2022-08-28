@@ -4,6 +4,7 @@
   "description": "set of tools to get and update my Strava activities",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
