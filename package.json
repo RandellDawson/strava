@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/RandellDawson/strava#readme",
   "dependencies": {
+    "commander": "^9.4.0",
     "dotenv": "^16.0.1",
     "node-fetch": "^3.2.10"
   },
