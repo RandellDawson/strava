@@ -3,7 +3,6 @@ import { authorize } from './index.js';
 import { SUBSCRIPTION_ID, BASE_API_URL } from './constants.js';
 
 const getActivityDetails = async (id, accessToken) => {
-  console.log(accessToken);
   const activityRoute = `${BASE_API_URL}/activities/${id}`;
   const requestOptions = {
     method: 'get',
@@ -11,7 +10,6 @@ const getActivityDetails = async (id, accessToken) => {
       Authorization: 'Bearer ' + accessToken
     }
   };
-  console.log('getting activity #' + id);
   const response = await fetch(activityRoute, requestOptions);
   const data = await response.json();
   return data;
@@ -19,7 +17,6 @@ const getActivityDetails = async (id, accessToken) => {
 
 const renameNewActivity = async (id) => {
   const accessToken = await authorize();
-  console.log(accessToken);
   const activity = await getActivityDetails(id, accessToken);
   const { distance: meters } = activity;
   const miles = meters / 1609.344;
