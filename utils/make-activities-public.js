@@ -61,7 +61,6 @@ const makeActivitiesPublic = async (num = 200) => {
   console.log(activities);
   if (activities.length) {
     const browser = await puppeteer.launch({
-      headless: false,
       args: [
         '--incognito'
       ]
