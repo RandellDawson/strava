@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import { CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } from './constants.js';
+console.log('CLIENT_ID', 'CLIENT_SECRET', 'REFRESH_TOKEN')
 console.log(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN)
 
 const authorize = async () => {
