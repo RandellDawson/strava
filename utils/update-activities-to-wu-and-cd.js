@@ -32,8 +32,16 @@ const updateActivity = async (id, name, date) => {
 
 const getStarredActivities = async (num = 100) => {
   const accessToken = await authorize();
-  const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}&access_token=${accessToken}`;
-  const response = await fetch(activitiesRoute);
+  const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}`;
+  const requestOptions = {
+    method: 'get',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    }
+  };
+  const response = await fetch(activitiesRoute, requestOptions);
   const data = await response.json();
   const activities = data.map(({
     name,

@@ -1,10 +1,8 @@
-import dotenv from 'dotenv'
-dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+import { VERIFY_TOKEN } from '../utils/constants.js';
+import { processEvent } from '../utils/process-event.js';
 
 const app = express();
 app.use(cors({ optionsSuccessStatus: 200 }));
@@ -16,27 +14,25 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.post('/webhook', (req, res) => {
-  console.log("webhook event received!", req.query, req.body);
-  res.status(200).send('EVENT_RECEIVED');
-});
+app.post('/webhook', processEvent);
 
-app.get('/webhook', (req, res) => {
+app.get('/webhook', (req, res, next) => {
   console.log('Webhook GET Request')
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
   if (mode && token) {
     // Verifies that the mode and token sent are valid
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {     
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
       // Responds with the challenge token from the request
       console.log('WEBHOOK_VERIFIED');
-      res.json({"hub.challenge":challenge});  
+      res.json({ "hub.challenge": challenge });
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);      
+      res.sendStatus(403);
     }
   }
+  next();
 });
 
 const listener = app.listen(process.env.PORT, () => {
