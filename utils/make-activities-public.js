@@ -27,8 +27,8 @@ const makeActivityPublic = async (page, id, name, date) => {
   await page.goto(`https://www.strava.com/activities/${id}/edit`);
   await page.waitForTimeout(2000);
   await page.evaluate(() => {
-     const radio = document.querySelector('input[type=radio][value=followers_only]');
-     radio.click();
+    const radio = document.querySelector('input[type=radio][value=followers_only]');
+    radio.click();
   });
 
   await page.waitForTimeout(2000);
@@ -59,22 +59,24 @@ const getActivities = async (num) => {
 const makeActivitiesPublic = async (num = 200) => {
   const activities = await getActivities(num);
   console.log(activities);
-  const browser = await puppeteer.launch({
-    headless: false,
-    args: [
-      '--incognito'
-    ]
-  });
-  const page = await browser.newPage();
-  await page.goto('https://www.strava.com/dashboard');
-  await page.setViewport({ width: 1920, height: 956 });
-  await loginToStrava(page);
-  await page.waitForTimeout(2000);
-  for (const { id, name, localDateTime } of activities) {
-    await makeActivityPublic(page, id, name, localDateTime);
+  if (activities.length) {
+    const browser = await puppeteer.launch({
+      headless: false,
+      args: [
+        '--incognito'
+      ]
+    });
+    const page = await browser.newPage();
+    await page.goto('https://www.strava.com/dashboard');
+    await page.setViewport({ width: 1920, height: 956 });
+    await loginToStrava(page);
+    await page.waitForTimeout(2000);
+    for (const { id, name, localDateTime } of activities) {
+      await makeActivityPublic(page, id, name, localDateTime);
+    }
+    await browser.close();
   }
   console.log(`finished changing visibility of ${activities.length} activities`);
-  await browser.close();
 };
 
 export default makeActivitiesPublic;
