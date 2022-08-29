@@ -1,13 +1,10 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 
 import { authorize } from './index.js';
-import { BASE_API_URL } from './constants.js';
+import { STRAVA_USERNAME, STRAVA_PASSWORD, BASE_API_URL } from './constants.js';
 
-const username = process.env.STRAVA_USERNAME;
-const password = process.env.STRAVA_PW;
+
 
 const loginToStrava = async (page) => {
   const needsToAcceptCookies = await page.$('button.btn-accept-cookie-banner');
@@ -17,8 +14,8 @@ const loginToStrava = async (page) => {
   }
 
   await page.waitForSelector('#login-button');
-  await page.type('#email', username);
-  await page.type('#password', password);
+  await page.type('#email', STRAVA_USERNAME);
+  await page.type('#password', STRAVA_PASSWORD);
   await page.click('#login-button');
   await page.waitForNavigation();
 };

@@ -30,7 +30,7 @@ const updateActivity = async (id, name, date) => {
   }
 };
 
-const getActivities = async (num = 100) => {
+const getStarredActivities = async (num = 100) => {
   const accessToken = await authorize();
   const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}&access_token=${accessToken}`;
   const response = await fetch(activitiesRoute);
@@ -47,11 +47,11 @@ const getActivities = async (num = 100) => {
   return warmupsAndCooldowns;
 };
 
-const updateActivities = async(num = 100) => {
-  const wuAndCd = await getActivities(num);
+const updateStarredActivitiesToWUCD = async(num = 100) => {
+  const wuAndCd = await getStarredActivities(num);
   for (const { localDateTime: date, id, name } of wuAndCd) {
     await updateActivity(id, name, date);
   }
 };
 
-export default updateActivities;
+export default updateStarredActivitiesToWUCD;

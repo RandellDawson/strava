@@ -1,5 +1,5 @@
-import updateActivities from './update-activities.js';
+import updateStarredActivitiesToWUCD from './update-activities-to-wu-and-cd.js';
 import makeActivitiesPublic from './make-activities-public.js';
 import authorize from './authorize.js';
 
-export { authorize, updateActivities, makeActivitiesPublic };
+export { authorize, updateStarredActivitiesToWUCD, makeActivitiesPublic };

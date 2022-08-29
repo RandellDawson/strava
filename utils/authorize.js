@@ -1,10 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import fetch from 'node-fetch';
-
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const refreshToken = process.env.REFRESH_TOKEN;
+import { CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } from './constants.js';
 
 const authorize = async () => {
   const authLink = 'https://www.strava.com/oauth/token';
@@ -15,9 +10,9 @@ const authorize = async () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: refreshToken,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      refresh_token: REFRESH_TOKEN,
       grant_type: 'refresh_token'
     })
   };
