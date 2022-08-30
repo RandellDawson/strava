@@ -15,17 +15,49 @@ const getActivityDetails = async (id, accessToken) => {
   return data;
 };
 
+const analyzeActivity = (activity) => {
+  const { distance: meters, laps } = activity;
+  const miles = Number((meters / 1609.344).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]); 
+
+  const lapPaces = laps.map(({ distance, moving_time: lapTime }) => {
+    const paceDec = lapTime / 60;
+    const mileage = distance / 1609.344;
+    const pacePerMile = paceDec / mileage;
+    const paceMins = Math.floor(pacePerMile);
+    const paceSecs = ((pacePerMile - paceMins) * 60).toFixed(0);
+    const paceStr = `${paceMins}:${paceSecs.padStart(2, '0')}`;
+    return { pacePerMile, pace: paceStr , mileage }
+  });
+  
+  const speedLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
+    return pacePerMile < 7 && mileage >= 0.06 && mileage <= 0.5;
+  });
+  
+  const tempoLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
+    return pacePerMile < 8 && mileage > 0.75;
+  });
+
+  return { miles, speedLaps, tempoLaps };
+};
+
 const renameNewActivity = async (id) => {
   const accessToken = await authorize();
   const activity = await getActivityDetails(id, accessToken);
-  const { distance: meters } = activity;
-  const miles = meters / 1609.344;
+  const { miles, speedLaps, tempoLaps } = analyzeActivity(activity);  
+  const mileageDesc = `${miles.toFixed(2)} miles`;
+
   let runEffort = 'Easy Run';
   if (miles >= 10) {
     runEffort = 'Long Run';
   }
-  const mileageDesc = `${miles.toFixed(2)} miles`;
+  else if (speedLaps.length) {
+    runEffort = 'Speed Workout'
+  }
+  else if (tempoLaps.length) {
+    runEffort = 'Tempo Run'
+  }
   const newName = `${runEffort} - ${mileageDesc}`;
+
   const requestOptions = {
     method: 'put',
     headers: {
