@@ -98,4 +98,4 @@ const processEvent = async (req, res) => {
   }
 };
 
-export { processEvent };
+export default processEvent;
