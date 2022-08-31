@@ -13,21 +13,19 @@ const updateActivity = async (id, name, date) => {
       : 'Cool Down'
     const newName = `${activityType} Run - ${mileageDesc}`;
     
-    // const data = await request({
-    //   method: 'put',
-    //   url: `${BASE_API_URL}/activities/${id}`,
-    //   headers: {
-    //     'Accept': 'application/json, text/plain, */*',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: {
-    //     access_token: accessToken,
-    //     name: newName
-    //   }
-    // });
-    // console.log(data);
-
-    console.log({date, id, name, newName});
+    const data = await request({
+      method: 'put',
+      url: `${BASE_API_URL}/activities/${id}`,
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: {
+        access_token: accessToken,
+        name: newName
+      }
+    });
+    console.log(data);
   }
 };
 
