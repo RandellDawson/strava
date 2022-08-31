@@ -29,13 +29,14 @@ const analyzeActivity = (activity) => {
     return { pacePerMile, pace: paceStr , mileage }
   });
   
-  const speedLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
-    return pacePerMile < 7 && mileage >= 0.06 && mileage <= 0.5;
-  });
-  
-  const tempoLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
-    return pacePerMile < 8 && mileage > 0.75;
-  });
+  const filterLapPaces = (expression) => {
+    return lapPaces.filter(({ pacePerMile, mileage }) => {
+      return eval(expression);
+    });
+  };
+
+  const speedLaps = filterLapPaces('pacePerMile < 7 && mileage >= 0.06 && mileage <= 0.75');
+  const tempoLaps = filterLapPaces('pacePerMile < 8 && mileage > 0.75');
 
   return { miles, speedLaps, tempoLaps };
 };
@@ -44,7 +45,7 @@ const renameNewActivity = async (id) => {
   const accessToken = await authorize();
   const activity = await getActivityDetails(id, accessToken);
   const { miles, speedLaps, tempoLaps } = analyzeActivity(activity);  
-  const mileageDesc = `${miles.toFixed(2)} miles`;
+  const mileageDesc = `${miles} miles`;
 
   let runEffort = 'Easy Run';
   if (miles >= 10) {
