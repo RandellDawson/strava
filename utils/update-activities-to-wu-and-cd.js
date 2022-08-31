@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
-import { authorize } from './index.js';
+
+import { authorize, request, getActivities } from './index.js';
 import { BASE_API_URL } from './constants.js';
 
 const updateActivity = async (id, name, date) => {
@@ -12,37 +12,29 @@ const updateActivity = async (id, name, date) => {
       ? 'Warm Up'
       : 'Cool Down'
     const newName = `${activityType} Run - ${mileageDesc}`;
-    const requestOptions = {
-      method: 'put',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        access_token: accessToken,
-        name: newName
-      })
-    };
-    // const response = await fetch(`${BASE_API_URL}/activities/${id}`, requestOptions);
-    // const data = await response.json();
+    
+    // const data = await request({
+    //   method: 'put',
+    //   url: `${BASE_API_URL}/activities/${id}`,
+    //   headers: {
+    //     'Accept': 'application/json, text/plain, */*',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: {
+    //     access_token: accessToken,
+    //     name: newName
+    //   }
+    // });
     // console.log(data);
+
     console.log({date, id, name, newName});
   }
 };
 
-const getStarredActivities = async (num = 100) => {
+const getStarredActivities = async (num = 200) => {
   const accessToken = await authorize();
-  const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}`;
-  const requestOptions = {
-    method: 'get',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + accessToken
-    }
-  };
-  const response = await fetch(activitiesRoute, requestOptions);
-  const data = await response.json();
+  const data = await getActivities(accessToken, num);
+
   const activities = data.map(({
     name,
     id,
@@ -55,7 +47,7 @@ const getStarredActivities = async (num = 100) => {
   return warmupsAndCooldowns;
 };
 
-const updateStarredActivitiesToWUCD = async(num = 100) => {
+const updateStarredActivitiesToWUCD = async (num) => {
   const wuAndCd = await getStarredActivities(num);
   for (const { localDateTime: date, id, name } of wuAndCd) {
     await updateActivity(id, name, date);

@@ -1,10 +1,7 @@
-import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 
-import { authorize } from './index.js';
+import { authorize, getActivities } from './index.js';
 import { STRAVA_USERNAME, STRAVA_PASSWORD, BASE_API_URL } from './constants.js';
-
-
 
 const loginToStrava = async (page) => {
   const needsToAcceptCookies = await page.$('button.btn-accept-cookie-banner');
@@ -35,11 +32,9 @@ const makeActivityPublic = async (page, id, name, date) => {
   await page.waitForTimeout(5000);
 };
 
-const getActivities = async (num) => {
+const getNonPublicActivities = async (num) => {
   const accessToken = await authorize();
-  const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}&access_token=${accessToken}`;
-  const response = await fetch(activitiesRoute);
-  const data = await response.json();
+  const data = await getActivities(accessToken, num);
   const activities = data.map(({
     name,
     id,
@@ -53,9 +48,10 @@ const getActivities = async (num) => {
   return nonPublicActivities;
 };
 
-const makeActivitiesPublic = async (num = 200) => {
-  const activities = await getActivities(num);
+const makeActivitiesPublic = async (num) => {
+  const activities = await getNonPublicActivities(num);
   console.log(activities);
+
   if (activities.length) {
     const browser = await puppeteer.launch({
       args: [

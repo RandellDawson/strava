@@ -1,17 +1,15 @@
-import fetch from 'node-fetch';
-import { authorize } from './index.js';
+import { authorize, request } from './index.js';
 import { SUBSCRIPTION_ID, BASE_API_URL } from './constants.js';
 
 const getActivityDetails = async (id, accessToken) => {
-  const activityRoute = `${BASE_API_URL}/activities/${id}`;
-  const requestOptions = {
+  const data = await request({
     method: 'get',
+    url: `${BASE_API_URL}/activities/${id}`,
     headers: {
       Authorization: 'Bearer ' + accessToken
     }
-  };
-  const response = await fetch(activityRoute, requestOptions);
-  const data = await response.json();
+  });
+  
   return data;
 };
 
@@ -58,20 +56,20 @@ const renameNewActivity = async (id) => {
     runEffort = 'Tempo Run'
   }
   const newName = `${runEffort} - ${mileageDesc}`;
-
-  const requestOptions = {
+  
+  const data = await request({
     method: 'put',
+    url: `${BASE_API_URL}/activities/${id}`,
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
+    body: {
       access_token: accessToken,
       name: newName
-    })
-  };
-  const response = await fetch(`${BASE_API_URL}/activities/${id}`, requestOptions);
-  const data = await response.json();
+    }
+  });
+
   console.log(data);
 };
 
