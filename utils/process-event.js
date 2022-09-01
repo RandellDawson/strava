@@ -3,7 +3,7 @@ import { constants, authorize, request } from './index.js';
 const getActivityDetails = async (id, accessToken) => {
   const data = await request({
     method: 'get',
-    url: `${BASE_API_URL}/activities/${id}`,
+    url: `${constants.BASE_API_URL}/activities/${id}`,
     headers: {
       Authorization: 'Bearer ' + accessToken
     }
