@@ -10,7 +10,7 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const SUBSCRIPTION_ID = process.env.SUBSCRIPTION_ID;
 const BASE_API_URL = 'https://www.strava.com/api/v3';
 
-export {
+export default {
   CLIENT_ID,
   CLIENT_SECRET,
   REFRESH_TOKEN,

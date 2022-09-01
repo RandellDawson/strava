@@ -1,5 +1,4 @@
-import { authorize, request } from './index.js';
-import { SUBSCRIPTION_ID, BASE_API_URL } from './constants.js';
+import { constants, authorize, request } from './index.js';
 
 const getActivityDetails = async (id, accessToken) => {
   const data = await request({
@@ -59,7 +58,7 @@ const renameNewActivity = async (id) => {
   
   const data = await request({
     method: 'put',
-    url: `${BASE_API_URL}/activities/${id}`,
+    url: `${constants.BASE_API_URL}/activities/${id}`,
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -91,7 +90,7 @@ const processEvent = async (req, res) => {
   
   if (
     aspectType === 'create' &&
-    String(subscriptionID) === SUBSCRIPTION_ID &&
+    String(subscriptionID) === constants.SUBSCRIPTION_ID &&
     activityID
   ) {
     await renameNewActivity(activityID);

@@ -1,5 +1,4 @@
-import { request } from './index.js';
-import { CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } from './constants.js';
+import { constants, request } from './index.js';
 
 const authorize = async () => {
   const data = await request({
@@ -10,9 +9,9 @@ const authorize = async () => {
       'Content-Type': 'application/json'
     },
     body: {
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      refresh_token: REFRESH_TOKEN,
+      client_id: constants.CLIENT_ID,
+      client_secret: constants.CLIENT_SECRET,
+      refresh_token: constants.REFRESH_TOKEN,
       grant_type: 'refresh_token'
     }
   });

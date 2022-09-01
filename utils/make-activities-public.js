@@ -1,7 +1,5 @@
 import puppeteer from 'puppeteer';
-
-import { authorize, getActivities } from './index.js';
-import { STRAVA_USERNAME, STRAVA_PASSWORD, BASE_API_URL } from './constants.js';
+import { constants, authorize, getActivities } from './index.js';
 
 const loginToStrava = async (page) => {
   const needsToAcceptCookies = await page.$('button.btn-accept-cookie-banner');
@@ -11,8 +9,8 @@ const loginToStrava = async (page) => {
   }
 
   await page.waitForSelector('#login-button');
-  await page.type('#email', STRAVA_USERNAME);
-  await page.type('#password', STRAVA_PASSWORD);
+  await page.type('#email', constants.STRAVA_USERNAME);
+  await page.type('#password', constants.STRAVA_PASSWORD);
   await page.click('#login-button');
   await page.waitForNavigation();
 };

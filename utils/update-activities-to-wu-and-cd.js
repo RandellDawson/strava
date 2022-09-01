@@ -1,6 +1,5 @@
 
-import { authorize, request, getActivities } from './index.js';
-import { BASE_API_URL } from './constants.js';
+import { constants, authorize, request, getActivities } from './index.js';
 
 const updateActivity = async (id, name, date) => {
   const accessToken = await authorize();
@@ -15,7 +14,7 @@ const updateActivity = async (id, name, date) => {
     
     const data = await request({
       method: 'put',
-      url: `${BASE_API_URL}/activities/${id}`,
+      url: `${constants.BASE_API_URL}/activities/${id}`,
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'

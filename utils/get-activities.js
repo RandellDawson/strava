@@ -1,8 +1,7 @@
-import { request } from './index.js';
-import { BASE_API_URL } from './constants.js';
+import { constants, request } from './index.js';
 
 const getActivities = async (accessToken, num = 200) => {
-  const activitiesRoute = `${BASE_API_URL}/athlete/activities?per_page=${num}`;
+  const activitiesRoute = `${constants.BASE_API_URL}/athlete/activities?per_page=${num}`;
 
   const data = await request({
     method: 'get',

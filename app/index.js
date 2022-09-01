@@ -1,8 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { VERIFY_TOKEN } from '../utils/constants.js';
-import { processEvent } from '../utils/process-event.js';
+import { constants, processEvent } from '../utils/index.js';
 
 const app = express();
 app.use(cors({ optionsSuccessStatus: 200 }));
@@ -23,7 +22,7 @@ app.get('/webhook', (req, res, next) => {
   const challenge = req.query['hub.challenge'];
   if (mode && token) {
     // Verifies that the mode and token sent are valid
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+    if (mode === 'subscribe' && token === constants.VERIFY_TOKEN) {
       // Responds with the challenge token from the request
       console.log('WEBHOOK_VERIFIED');
       res.json({ "hub.challenge": challenge });
