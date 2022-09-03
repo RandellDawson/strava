@@ -8,24 +8,35 @@ const getActivityDetails = async (id, accessToken) => {
       Authorization: 'Bearer ' + accessToken
     }
   });
-  
+
   return data;
 };
 
+const createSplitAndPaceTimesText = (laps) => laps
+  .map(({ lapTime, pace }, index) => `#${index + 1} - ${lapTime} (pace: ${pace})`)
+  .join('\n');
+
 const analyzeActivity = (activity) => {
   const { distance: meters, laps } = activity;
-  const miles = Number((meters / 1609.344).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]); 
+  const miles = Number((meters / 1609.344).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
 
   const lapPaces = laps.map(({ distance, moving_time: lapTime }) => {
     const paceDec = lapTime / 60;
+    const timeMins = Math.floor(paceDec);
+    const timeSecs = ((paceDec - timeMins) * 60).toFixed(0);
     const mileage = distance / 1609.344;
     const pacePerMile = paceDec / mileage;
     const paceMins = Math.floor(pacePerMile);
     const paceSecs = ((pacePerMile - paceMins) * 60).toFixed(0);
     const paceStr = `${paceMins}:${paceSecs.padStart(2, '0')}`;
-    return { pacePerMile, pace: paceStr , mileage }
+    return {
+      lapTime: `${timeMins}:${timeSecs.padStart(2,'0')}`,
+      pacePerMile,
+      pace: paceStr,
+      mileage
+    };
   });
-  
+
   const filterLapPaces = (expression) => {
     return lapPaces.filter(({ pacePerMile, mileage }) => {
       return eval(expression);
@@ -35,27 +46,36 @@ const analyzeActivity = (activity) => {
   const speedLaps = filterLapPaces('pacePerMile < 7 && mileage >= 0.06 && mileage <= 0.75');
   const tempoLaps = filterLapPaces('pacePerMile < 8 && mileage > 0.75');
 
-  return { miles, speedLaps, tempoLaps };
+  const speedLapSplitsText = createSplitAndPaceTimesText(speedLaps);
+  const tempoLapSplitsText = createSplitAndPaceTimesText(tempoLaps);
+  return {
+    miles,
+    speedLaps,
+    tempoLaps,
+    splitsText: { speed: speedLapSplitsText, tempo: tempoLapSplitsText } };
 };
 
 const renameNewActivity = async (id) => {
   const accessToken = await authorize();
   const activity = await getActivityDetails(id, accessToken);
-  const { miles, speedLaps, tempoLaps } = analyzeActivity(activity);  
+  const { miles, speedLaps, tempoLaps, splitsText } = analyzeActivity(activity);
   const mileageDesc = `${miles} miles`;
-
+  
   let runEffort = 'Easy Run';
+  let lapSplitsText = '';
   if (miles >= 10) {
     runEffort = 'Long Run';
   }
   else if (speedLaps.length) {
-    runEffort = 'Speed Workout'
+    runEffort = 'Speed Workout';
+    lapSplitsText = splitsText.speed;
   }
   else if (tempoLaps.length) {
-    runEffort = 'Tempo Run'
+    runEffort = 'Tempo Run';
+    lapSplitsText = splitsText.tempo;
   }
   const newName = `${runEffort} - ${mileageDesc}`;
-  
+
   const data = await request({
     method: 'put',
     url: `${constants.BASE_API_URL}/activities/${id}`,
@@ -65,7 +85,8 @@ const renameNewActivity = async (id) => {
     },
     body: {
       access_token: accessToken,
-      name: newName
+      name: newName,
+      description: `splits:\n${lapSplitsText}`
     }
   });
 
@@ -87,7 +108,7 @@ const processEvent = async (req, res) => {
   res
     .status(200)
     .send(response);
-  
+
   if (
     aspectType === 'create' &&
     String(subscriptionID) === constants.SUBSCRIPTION_ID &&
