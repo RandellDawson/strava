@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./app/index.js",
     "cli": "node ./cli",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests/ --ui tdd"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,10 @@
     "node-fetch": "^3.2.10",
     "puppeteer": "^16.2.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0"
+  }
 }
