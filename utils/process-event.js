@@ -75,7 +75,13 @@ const renameNewActivity = async (id) => {
     lapSplitsText = splitsText.tempo;
   }
   const newName = `${runEffort} - ${mileageDesc}`;
-
+  let body = {
+    access_token: accessToken,
+    name: newName
+  }
+  if (runEffort === 'Speed Workout' || runEffort === 'Tempo Run') {
+    body = { ...body, description: `splits:\n${lapSplitsText}` };
+  }
   const data = await request({
     method: 'put',
     url: `${constants.BASE_API_URL}/activities/${id}`,
@@ -83,13 +89,8 @@ const renameNewActivity = async (id) => {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
-    body: {
-      access_token: accessToken,
-      name: newName,
-      description: `splits:\n${lapSplitsText}`
-    }
+    body
   });
-
   console.log(data);
 };
 
