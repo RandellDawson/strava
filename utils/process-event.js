@@ -12,12 +12,6 @@ const getActivityDetails = async (id, accessToken) => {
   return data;
 };
 
-const filterLapPaces = (lapPaces, expression) => {
-  return lapPaces.filter(({ pacePerMile, mileage }) => {
-    return eval(expression);
-  });
-};
-
 const createSplitAndPaceTimesText = (laps) => laps
   .map(({ lapTime, pace }, index) => `#${index + 1} - ${lapTime} (pace: ${pace})`)
   .join('\n');
@@ -42,12 +36,21 @@ const analyzeActivity = (activity) => {
       mileage
     };
   });
+  
+  const speedLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
+    return pacePerMile < constants.SPEED_MAX_PACE &&
+      mileage >= constants.SPEED_MIN_MILEAGE &&
+      mileage <= constants.SPEED_MAX_MILEAGE;
+  });
 
-  const speedLaps = filterLapPaces(lapPaces, 'pacePerMile < 7 && mileage >= 0.06 && mileage <= 0.75');
-  const tempoLaps = filterLapPaces(lapPaces, 'pacePerMile < 8 && mileage > 0.75');
+  const tempoLaps = lapPaces.filter(({ pacePerMile, mileage }) => {
+    return pacePerMile < constants.TEMPO_MAX_PACE &&
+      mileage >= constants.TEMPO_MIN_MILEAGE;
+  });
 
   const speedLapSplitsText = createSplitAndPaceTimesText(speedLaps);
   const tempoLapSplitsText = createSplitAndPaceTimesText(tempoLaps);
+
   return {
     miles,
     speedLaps,
@@ -135,6 +138,5 @@ export {
   createNewActivityNameAndDesc,
   createSplitAndPaceTimesText,
   analyzeActivity,
-  filterLapPaces,
   processEvent
 };
