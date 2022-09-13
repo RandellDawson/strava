@@ -122,16 +122,19 @@ suite('Unit Tests', function(){
     });    
   });
   suite('Function createNewActivityNameAndDesc', function() {
-    test('Activity with 12 miles should be named "Long Run - 12 miles"', function(done) {
-      const { name: activityName } = createNewActivityNameAndDesc({
+    test(`Activity with 12 miles should be named "Long Run - 12 miles" and
+          description should be empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
         miles: 12, speedLaps: [], tempoLaps: []
       });
       assert.equal(activityName, 'Long Run - 12 miles');
+      assert.equal(description, '');
       done();
     });
 
     test('Activity with speed laps should have a name starting with "Speed Workout"', function(done) {
-      const { name: activityName } = createNewActivityNameAndDesc({
+      const { name: activityName, description } = createNewActivityNameAndDesc({
         miles: 5,
         speedLaps: [
           {
@@ -156,11 +159,12 @@ suite('Unit Tests', function(){
         tempoLaps: []
       });
       assert.isTrue(activityName.startsWith('Speed Workout'));
+      assert.equal(description, 'splits:\n#1 - 1:32 (pace: 6:09)\n#2 - 1:34 (pace: 6:25)\n#3 - 1:30 (pace: 6:06)')
       done();
     });
 
     test('Activity with tempo laps should have a name starting with "Tempo Run"', function(done) {
-      const { name: activityName } = createNewActivityNameAndDesc({
+      const { name: activityName, description } = createNewActivityNameAndDesc({
         miles: 8,
         speedLaps: [],
         tempoLaps: [
@@ -185,14 +189,18 @@ suite('Unit Tests', function(){
         ]
       });
       assert.isTrue(activityName.startsWith('Tempo Run'));
+      assert.equal(description, 'splits:\n#1 - 7:38 (pace: 7:38)\n#2 - 7:37 (pace: 7:37)\n#3 - 7:28 (pace: 7:28)')
       done();
     });
 
-    test('Activity with less than 10 miles and has no speed or tempo laps should have a name starting with "Easy Run"', function(done) {
-      const { name: activityName } = createNewActivityNameAndDesc({
+    test(`Activity with less than 10 miles and has no speed or tempo laps should have
+          a name starting with "Easy Run" and description should be empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
         miles: 9, speedLaps: [], tempoLaps: []
       });
       assert.isTrue(activityName.startsWith('Easy Run'));
+      assert.equal(description, '');
       done();
     });
   });
