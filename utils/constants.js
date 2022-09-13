@@ -9,11 +9,11 @@ const STRAVA_PASSWORD = process.env.STRAVA_PASSWORD;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const SUBSCRIPTION_ID = process.env.SUBSCRIPTION_ID;
 const BASE_API_URL = 'https://www.strava.com/api/v3';
-const SPEED_MAX_PACE = process.env.SPEED_MAX_PACE;
-const SPEED_MIN_MILEAGE = process.env.SPEED_MIN_MILEAGE;
-const SPEED_MAX_MILEAGE = process.env.SPEED_MAX_MILEAGE;
-const TEMPO_MAX_PACE = process.env.TEMPO_MAX_PACE;
-const TEMP_MIN_MILEAGE = process.env.TEMP_MIN_MILEAGE;
+const SPEED_MAX_PACE = Number(process.env.SPEED_MAX_PACE);
+const SPEED_MIN_MILEAGE = Number(process.env.SPEED_MIN_MILEAGE);
+const SPEED_MAX_MILEAGE = Number(process.env.SPEED_MAX_MILEAGE);
+const TEMPO_MAX_PACE = Number(process.env.TEMPO_MAX_PACE);
+const TEMPO_MIN_MILEAGE = Number(process.env.TEMPO_MIN_MILEAGE);
 
 export default {
   CLIENT_ID,
@@ -28,5 +28,5 @@ export default {
   SPEED_MIN_MILEAGE,
   SPEED_MAX_MILEAGE,
   TEMPO_MAX_PACE,
-  TEMP_MIN_MILEAGE
+  TEMPO_MIN_MILEAGE
 };
