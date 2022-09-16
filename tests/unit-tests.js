@@ -123,18 +123,19 @@ suite('Unit Tests', function(){
   });
   suite('Function createNewActivityNameAndDesc', function() {
     test(`Activity with 12 miles should be named "Long Run - 12 miles" and
-          description should be empty string`,
+          description should be an empty string`,
     function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
-        miles: 12, speedLaps: [], tempoLaps: []
+        avgDecPace: 9.75, miles: 12, speedLaps: [], tempoLaps: []
       });
       assert.equal(activityName, 'Long Run - 12 miles');
       assert.equal(description, '');
       done();
     });
 
-    test('Activity with speed laps should have a name starting with "Speed Workout"', function(done) {
+    test('Activity with speed laps should have a name starting with "Speed Workout" and applicable splits in description', function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 9,
         miles: 5,
         speedLaps: [
           {
@@ -163,8 +164,9 @@ suite('Unit Tests', function(){
       done();
     });
 
-    test('Activity with tempo laps should have a name starting with "Tempo Run"', function(done) {
+    test('Activity with tempo laps should have a name starting with "Tempo Run" and applicable splits in description', function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 9.25,
         miles: 8,
         speedLaps: [],
         tempoLaps: [
@@ -193,15 +195,48 @@ suite('Unit Tests', function(){
       done();
     });
 
-    test(`Activity with less than 10 miles and has no speed or tempo laps should have
-          a name starting with "Easy Run" and description should be empty string`,
+    test(`Activity with less than 10 miles, has no speed or tempo laps, and has average pace less than or equal to 9:50 /mile should have
+          a name starting with "Easy Run" and description should be an empty string`,
     function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
-        miles: 9, speedLaps: [], tempoLaps: []
+        avgDecPace: 9.8, miles: 9, speedLaps: [], tempoLaps: []
       });
       assert.isTrue(activityName.startsWith('Easy Run'));
       assert.equal(description, '');
       done();
     });
+
+    test(`Activity with less than 10 miles, has no speed or tempo laps, and has average pace greater than RECOVERY_MIN_PACE should have
+          a name starting with "Easy Run" and description should be an empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 10, miles: 9, speedLaps: [], tempoLaps: []
+      });
+      assert.isTrue(activityName.startsWith('Easy Run'));
+      assert.equal(description, '');
+      done();
+    });    
+
+    test(`Activity with less than or equal to 7 miles, has no speed or tempo laps, and has average pace greater than RECOVERY_MIN_PACE should have
+          a name starting with "Recovery Run" and description should be an empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 9.85, miles: 6.9, speedLaps: [], tempoLaps: []
+      });
+      assert.isTrue(activityName.startsWith('Recovery Run'));
+      assert.equal(description, '');
+      done();
+    });   
+    
+    test(`Activity with less than or equal to 7 miles, has no speed or tempo laps, and has average pace less than RECOVERY_MIN_PACE should have
+          a name starting with "Easy Run" and description should be an empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 9.5, miles: 6.9, speedLaps: [], tempoLaps: []
+      });
+      assert.isTrue(activityName.startsWith('Easy Run'));
+      assert.equal(description, '');
+      done();
+    });   
   });
 });

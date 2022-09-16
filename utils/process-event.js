@@ -17,9 +17,9 @@ const createSplitAndPaceTimesText = (laps) => laps
   .join('\n');
 
 const analyzeActivity = (activity) => {
-  const { distance: meters, laps } = activity;
+  const { moving_time: totalTime, distance: meters, laps } = activity;
   const miles = Number((meters / 1609.344).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
-
+  const avgDecPace = (totalTime / 60) / miles;
   const lapPaces = laps.map(({ distance, moving_time: lapTime }) => {
     const paceDec = lapTime / 60;
     const timeMins = Math.floor(paceDec);
@@ -50,28 +50,30 @@ const analyzeActivity = (activity) => {
 
   return {
     miles,
+    avgDecPace,
     speedLaps,
     tempoLaps
   };
 };
 
 const createNewActivityNameAndDesc = ({
-  miles, speedLaps, tempoLaps
+  avgDecPace, miles, speedLaps, tempoLaps
 }) => {
 
   let runEffort = 'Easy Run';
   let lapSplitsText = '';
   if (miles >= 10) {
     runEffort = 'Long Run';
-  }
-  else if (speedLaps.length) {
+  } else if (speedLaps.length) {
     runEffort = 'Speed Workout';
     lapSplitsText = createSplitAndPaceTimesText(speedLaps);;
-  }
-  else if (tempoLaps.length) {
+  } else if (tempoLaps.length) {
     runEffort = 'Tempo Run';
     lapSplitsText = createSplitAndPaceTimesText(tempoLaps);
+  } else if (miles <= 7 && avgDecPace > constants.RECOVERY_MIN_PACE) {
+    runEffort = 'Recovery Run';
   }
+
   const mileageDesc = `${miles} miles`;
   const name = `${runEffort} - ${mileageDesc}`;
   const description = runEffort === 'Speed Workout' || runEffort === 'Tempo Run'
@@ -83,10 +85,10 @@ const createNewActivityNameAndDesc = ({
 const renameNewActivity = async (id) => {
   const accessToken = await authorize();
   const activity = await getActivityDetails(id, accessToken);
-  const { miles, speedLaps, tempoLaps } = analyzeActivity(activity);
+  const { avgDecPace, miles, speedLaps, tempoLaps } = analyzeActivity(activity);
     
   const { name, description } = createNewActivityNameAndDesc({
-    miles, speedLaps, tempoLaps
+    avgDecPace, miles, speedLaps, tempoLaps
   });
   
   let body = {

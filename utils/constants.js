@@ -14,6 +14,7 @@ const SPEED_MIN_MILEAGE = Number(process.env.SPEED_MIN_MILEAGE);
 const SPEED_MAX_MILEAGE = Number(process.env.SPEED_MAX_MILEAGE);
 const TEMPO_MAX_PACE = Number(process.env.TEMPO_MAX_PACE);
 const TEMPO_MIN_MILEAGE = Number(process.env.TEMPO_MIN_MILEAGE);
+const RECOVERY_MIN_PACE = Number(process.env.RECOVERY_MIN_PACE);
 
 export default {
   CLIENT_ID,
@@ -28,5 +29,6 @@ export default {
   SPEED_MIN_MILEAGE,
   SPEED_MAX_MILEAGE,
   TEMPO_MAX_PACE,
-  TEMPO_MIN_MILEAGE
+  TEMPO_MIN_MILEAGE,
+  RECOVERY_MIN_PACE
 };
