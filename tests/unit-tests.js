@@ -5,7 +5,7 @@ import {
   analyzeActivity,
   createSplitAndPaceTimesText,
   createNewActivityNameAndDesc
-} from '../utils/process-event.js';
+} from '../utils/index.js';
 
 import speedWorkActivity from './__fixtures__/speed-work-activity.js';
 import tempoRunActivity from './__fixtures__/tempo-run-activity.js';
