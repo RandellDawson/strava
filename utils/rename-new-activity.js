@@ -1,4 +1,4 @@
-import { constants, analyzeActivity, createNewActivityNameAndDesc } from './index.js';
+import { constants, authorize, analyzeActivity, createNewActivityNameAndDesc } from './index.js';
 
 const renameNewActivity = async (id) => {
   const accessToken = await authorize();
