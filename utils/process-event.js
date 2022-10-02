@@ -1,4 +1,4 @@
-import { constants } from './index.js';
+import { constants, renameNewActivity } from './index.js';
 
 const processEvent = async (req, res) => {
   console.log("webhook event received!", req.query, req.body);
