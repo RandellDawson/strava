@@ -1,4 +1,4 @@
-import { constants } from './index.js';
+import { constants, request } from './index.js';
 
 const getActivityDetails = async (id, accessToken) => {
   const data = await request({
