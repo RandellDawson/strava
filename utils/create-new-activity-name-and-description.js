@@ -14,6 +14,8 @@ const createNewActivityNameAndDesc = ({
   } else if (tempoLaps.length) {
     runEffort = 'Tempo Run';
     lapSplitsText = createSplitAndPaceTimesText(tempoLaps);
+  } else if (avgDecPace > 14.5) {
+    runEffort = 'Walk';  
   } else if (miles <= 7 && avgDecPace > constants.RECOVERY_MIN_PACE) {
     runEffort = 'Recovery Run';
   }

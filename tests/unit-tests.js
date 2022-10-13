@@ -217,6 +217,18 @@ suite('Unit Tests', function(){
       done();
     });    
 
+    test(`Activity that has no speed or tempo laps, and has average pace greater than 14:30 should have
+          a name starting with "Walk" and description should be an empty string`,
+    function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 14.51, miles: 5, speedLaps: [], tempoLaps: []
+      });
+      assert.isTrue(activityName.startsWith('Walk'));
+      assert.equal(description, '');
+      done();
+    });   
+    
+
     test(`Activity with less than or equal to 7 miles, has no speed or tempo laps, and has average pace greater than RECOVERY_MIN_PACE should have
           a name starting with "Recovery Run" and description should be an empty string`,
     function(done) {
