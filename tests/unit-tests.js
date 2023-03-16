@@ -164,7 +164,7 @@ suite('Unit Tests', function(){
       done();
     });
 
-    test('Activity with tempo laps should have a name starting with "Tempo Run" and applicable splits in description', function(done) {
+    test('Activity with at least 3 tempo laps should have a name starting with "Tempo Run" and applicable splits in description', function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
         avgDecPace: 9.25,
         miles: 8,
@@ -192,6 +192,31 @@ suite('Unit Tests', function(){
       });
       assert.isTrue(activityName.startsWith('Tempo Run'));
       assert.equal(description, 'splits:\n#1 - 7:38 (pace: 7:38)\n#2 - 7:37 (pace: 7:37)\n#3 - 7:28 (pace: 7:28)')
+      done();
+    });
+
+    test('Activity with less than 3 tempo laps should have a name starting with "Easy Run" and description should be an empty string', function(done) {
+      const { name: activityName, description } = createNewActivityNameAndDesc({
+        avgDecPace: 9.25,
+        miles: 8,
+        speedLaps: [],
+        tempoLaps: [
+          {
+            lapTime: '7:38',
+            pacePerMile: 7.633352305914227,
+            pace: '7:38',
+            mileage: 0.999997514515231
+          },
+          {
+            lapTime: '7:28',
+            pacePerMile: 7.466685224999068,
+            pace: '7:28',
+            mileage: 0.999997514515231
+          }
+        ]
+      });
+      assert.isTrue(activityName.startsWith('Easy Run'));
+      assert.equal(description, '')
       done();
     });
 

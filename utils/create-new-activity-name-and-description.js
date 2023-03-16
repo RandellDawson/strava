@@ -11,7 +11,7 @@ const createNewActivityNameAndDesc = ({
   } else if (speedLaps.length) {
     runEffort = 'Speed Workout';
     lapSplitsText = createSplitAndPaceTimesText(speedLaps);;
-  } else if (tempoLaps.length) {
+  } else if (tempoLaps.length >= 3) {
     runEffort = 'Tempo Run';
     lapSplitsText = createSplitAndPaceTimesText(tempoLaps);
   } else if (avgDecPace > 14.5) {
