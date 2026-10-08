@@ -122,14 +122,31 @@ suite('Unit Tests', function(){
     });    
   });
   suite('Function createNewActivityNameAndDesc', function() {
-    test(`Activity with 12 miles should be named "Long Run - 12 miles" and
+    test(`Activity with 12 miles should be named "Medium Long Run - 12 miles" and
           description should be an empty string`,
     function(done) {
       const { name: activityName, description } = createNewActivityNameAndDesc({
         avgDecPace: 9.75, miles: 12, speedLaps: [], tempoLaps: []
       });
-      assert.equal(activityName, 'Long Run - 12 miles');
+      assert.equal(activityName, 'Medium Long Run - 12 miles');
       assert.equal(description, '');
+      done();
+    });
+
+    test('10 miles is Medium Long Run and 15 miles is Long Run', function(done) {
+      for (const [miles, expected] of [
+        [9.99, 'Easy Run - 9.99 miles'],
+        [10, 'Medium Long Run - 10 miles'],
+        [14.99, 'Medium Long Run - 14.99 miles'],
+        [15, 'Long Run - 15 miles'],
+        [16, 'Long Run - 16 miles']
+      ]) {
+        const { name, description } = createNewActivityNameAndDesc({
+          avgDecPace: 9, miles, speedLaps: [], tempoLaps: []
+        });
+        assert.equal(name, expected);
+        assert.equal(description, '');
+      }
       done();
     });
 

@@ -6,8 +6,10 @@ const createNewActivityNameAndDesc = ({
 
   let runEffort = 'Easy Run';
   let lapSplitsText = '';
-  if (miles >= 10) {
+  if (miles >= 15) {
     runEffort = 'Long Run';
+  } else if (miles >= 10) {
+    runEffort = 'Medium Long Run';
   } else if (speedLaps.length) {
     runEffort = 'Speed Workout';
     lapSplitsText = createSplitAndPaceTimesText(speedLaps);;
