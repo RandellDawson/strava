@@ -26,7 +26,33 @@ export function validateAchievements(data) {
       }
     }
   }
+  if (data.races != null) {
+    if (!Array.isArray(data.races)) throw new Error('Invalid races list');
+    const raceIds = new Set();
+    for (const race of data.races) {
+      if (!race || typeof race.id !== 'string' || raceIds.has(race.id) ||
+          !/^[a-z0-9-]+$/.test(race.id)) throw new Error('Invalid or duplicate race ID');
+      raceIds.add(race.id);
+      if (typeof race.race !== 'string' || !race.race.trim() ||
+          !['marathon','half-marathon','10k','5k','other'].includes(race.distance) ||
+          typeof race.date !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(race.date) ||
+          typeof race.finishTime !== 'string' || !/^(?:\\d+:)?[0-5]?\\d:[0-5]\\d$/.test(race.finishTime)) throw new Error('Invalid race details');
+      if (race.stravaActivityId != null && !/^\\d+$/.test(String(race.stravaActivityId))) throw new Error('Invalid race Strava ID');
+      if (!race.placement || !['overall','gender','ageGroup'].every(k => validPlacement(race.placement[k]))) throw new Error('Invalid race placement');
+    }
+  }
   return data;
+}
+
+export function personalRecords(races) {
+  const records = new Map();
+  const seconds = time => time.split(':').reduce((total, part) => total * 60 + Number(part), 0);
+  for (const race of races) {
+    if (!race.distance || !race.finishTime) continue;
+    const previous = records.get(race.distance);
+    if (!previous || seconds(race.finishTime) < seconds(previous.finishTime)) records.set(race.distance, race);
+  }
+  return [...records.values()];
 }
 
 export async function loadPublicAchievements() {
