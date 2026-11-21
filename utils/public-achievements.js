@@ -14,8 +14,8 @@ export function validateAchievements(data) {
     if (!item || typeof item.id !== 'string' || !/^[a-z0-9-]+$/.test(item.id) || ids.has(item.id)) throw new Error('Invalid or duplicate achievement id');
     ids.add(item.id);
     if (typeof item.title !== 'string' || !item.title.trim() || !Array.isArray(item.categories) || !item.categories.length || !item.categories.every(c => typeof c === 'string' && /^[a-z0-9-]+$/.test(c))) throw new Error('Invalid achievement title or categories');
-    if (item.date != null && (typeof item.date !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date))) throw new Error('Invalid date');
-    if (item.stravaActivityId != null && !/^\\d+$/.test(String(item.stravaActivityId))) throw new Error('Invalid Strava activity ID');
+    if (item.date != null && (typeof item.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(item.date))) throw new Error('Invalid date');
+    if (item.stravaActivityId != null && !/^\d+$/.test(String(item.stravaActivityId))) throw new Error('Invalid Strava activity ID');
     if (item.athlinksUrl && (!/^https:\/\//.test(item.athlinksUrl) || new URL(item.athlinksUrl).hostname !== 'www.athlinks.com' && new URL(item.athlinksUrl).hostname !== 'athlinks.com')) throw new Error('Invalid Athlinks URL');
     if (item.placement != null) {
       if (typeof item.placement !== 'object' || Array.isArray(item.placement)) throw new Error('Invalid placement');
@@ -35,10 +35,10 @@ export function validateAchievements(data) {
       raceIds.add(race.id);
       if (typeof race.race !== 'string' || !race.race.trim() ||
           !['marathon','half-marathon','10k','5k','other'].includes(race.distance) ||
-          typeof race.date !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(race.date) ||
-          typeof race.finishTime !== 'string' || !/^(?:\\d+:)?[0-5]?\\d:[0-5]\\d$/.test(race.finishTime)) throw new Error('Invalid race details');
+          typeof race.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(race.date) ||
+          typeof race.finishTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.finishTime)) throw new Error('Invalid race details');
       if (!['competitor','official-pacer'].includes(race.role) || (race.pacing != null && (race.role !== 'official-pacer' || typeof race.pacing !== 'object' || typeof race.pacing.targetTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.pacing.targetTime)))) throw new Error('Invalid race role or pacing');
-      if (race.stravaActivityId != null && !/^\\d+$/.test(String(race.stravaActivityId))) throw new Error('Invalid race Strava ID');
+      if (race.stravaActivityId != null && !/^\d+$/.test(String(race.stravaActivityId))) throw new Error('Invalid race Strava ID');
       if (!race.placement || !['overall','gender','ageGroup'].every(k => validPlacement(race.placement[k]))) throw new Error('Invalid race placement');
     }
   }
