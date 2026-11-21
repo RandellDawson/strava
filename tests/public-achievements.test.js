@@ -5,7 +5,7 @@ import { loadPublicAchievements, validateAchievements, personalRecords } from '.
 test('initial achievements file is valid', async () => {
   const data = await loadPublicAchievements();
   assert.deepEqual(data.achievements, []);
-  assert.match(data.lastUpdated, /^\\d{4}-\\d{2}-\\d{2}T/);
+  assert.match(data.lastUpdated, /^\d{4}-\d{2}-\d{2}T/);
   assert.equal(data.races.length, 22);
   assert.ok(data.races.every(r => r.role === 'competitor' && r.pacing === null));
   const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
