@@ -7,6 +7,7 @@ test('initial achievements file is valid', async () => {
   assert.deepEqual(data.achievements, []);
   assert.match(data.lastUpdated, /^\\d{4}-\\d{2}-\\d{2}T/);
   assert.equal(data.races.length, 22);
+  assert.ok(data.races.every(r => r.role === 'competitor' && r.pacing === null));
   const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
   assert.deepEqual(prs, { 'half-marathon': '1:30:07', marathon: '3:12:45', '10k': '41:06', '5k': '19:29' });
 });
@@ -23,4 +24,9 @@ test('supports multiple categories and placement denominators', () => {
   assert.equal(validateAchievements(data), data);
   assert.throws(() => validateAchievements({ ...data, achievements: [{ ...data.achievements[0], placement: { overall: { place: 4, outOf: 3 } } }] }), /Invalid placement/);
   assert.throws(() => validateAchievements({ ...data, achievements: [...data.achievements, data.achievements[0]] }), /duplicate/);
+});
+
+test('official pacers are excluded from competitive PRs', () => {
+  const races = [{ distance: '5k', finishTime: '18:00', role: 'official-pacer' }, { distance: '5k', finishTime: '19:29', role: 'competitor' }];
+  assert.equal(personalRecords(races)[0].finishTime, '19:29');
 });
