@@ -1,9 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { loadPublicAchievements, validateAchievements } from '../utils/public-achievements.js';
+import { loadPublicAchievements, validateAchievements, personalRecords } from '../utils/public-achievements.js';
 
 test('initial achievements file is valid', async () => {
-  assert.deepEqual((await loadPublicAchievements()).achievements, []);
+  const data = await loadPublicAchievements();
+  assert.deepEqual(data.achievements, []);
+  assert.equal(data.races.length, 22);
+  const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
+  assert.deepEqual(prs, { 'half-marathon': '1:30:07', marathon: '3:12:45', '10k': '41:06', '5k': '19:29' });
 });
 
 test('supports multiple categories and placement denominators', () => {
