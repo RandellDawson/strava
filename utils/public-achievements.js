@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 
 const dataUrl = new URL('../data/achievements.json', import.meta.url);
 const validPlacement = value => value == null || (
@@ -8,7 +8,7 @@ const validPlacement = value => value == null || (
 );
 
 export function validateAchievements(data) {
-  if (!data || data.version !== 1 || !Array.isArray(data.achievements)) throw new Error('Invalid achievements document');
+  if (!data || !Array.isArray(data.achievements)) throw new Error('Invalid achievements document');
   const ids = new Set();
   for (const item of data.achievements) {
     if (!item || typeof item.id !== 'string' || !/^[a-z0-9-]+$/.test(item.id) || ids.has(item.id)) throw new Error('Invalid or duplicate achievement id');
@@ -56,5 +56,7 @@ export function personalRecords(races) {
 }
 
 export async function loadPublicAchievements() {
-  return validateAchievements(JSON.parse(await readFile(dataUrl, 'utf8')));
+  const data = validateAchievements(JSON.parse(await readFile(dataUrl, 'utf8')));
+  const info = await stat(dataUrl);
+  return { lastUpdated: info.mtime.toISOString(), ...data };
 }
