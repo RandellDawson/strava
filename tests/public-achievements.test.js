@@ -5,13 +5,14 @@ import { loadPublicAchievements, validateAchievements, personalRecords } from '.
 test('initial achievements file is valid', async () => {
   const data = await loadPublicAchievements();
   assert.deepEqual(data.achievements, []);
+  assert.match(data.lastUpdated, /^\\d{4}-\\d{2}-\\d{2}T/);
   assert.equal(data.races.length, 22);
   const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
   assert.deepEqual(prs, { 'half-marathon': '1:30:07', marathon: '3:12:45', '10k': '41:06', '5k': '19:29' });
 });
 
 test('supports multiple categories and placement denominators', () => {
-  const data = { version: 1, achievements: [{
+  const data = { achievements: [{
     id: 'sample-race', title: 'Sample race', categories: ['personal-record','age-group-placement'],
     stravaActivityId: '123456789', placement: {
       overall: { place: 42, outOf: 1250 },
