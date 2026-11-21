@@ -1,6 +1,6 @@
 import { readFile, stat } from 'node:fs/promises';
 
-const dataUrl = new URL('../data/achievements.json', import.meta.url);
+const dataUrl = new URL('../data/running-achievements.json', import.meta.url);
 const validPlacement = value => value == null || (
   typeof value === 'object' && !Array.isArray(value) &&
   Number.isInteger(value.place) && value.place > 0 &&
@@ -37,6 +37,7 @@ export function validateAchievements(data) {
           !['marathon','half-marathon','10k','5k','other'].includes(race.distance) ||
           typeof race.date !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(race.date) ||
           typeof race.finishTime !== 'string' || !/^(?:\\d+:)?[0-5]?\\d:[0-5]\\d$/.test(race.finishTime)) throw new Error('Invalid race details');
+      if (!['competitor','official-pacer'].includes(race.role) || (race.pacing != null && (race.role !== 'official-pacer' || typeof race.pacing !== 'object' || typeof race.pacing.targetTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.pacing.targetTime)))) throw new Error('Invalid race role or pacing');
       if (race.stravaActivityId != null && !/^\\d+$/.test(String(race.stravaActivityId))) throw new Error('Invalid race Strava ID');
       if (!race.placement || !['overall','gender','ageGroup'].every(k => validPlacement(race.placement[k]))) throw new Error('Invalid race placement');
     }
@@ -48,7 +49,7 @@ export function personalRecords(races) {
   const records = new Map();
   const seconds = time => time.split(':').reduce((total, part) => total * 60 + Number(part), 0);
   for (const race of races) {
-    if (!race.distance || !race.finishTime) continue;
+    if (!race.distance || !race.finishTime || race.role === 'official-pacer') continue;
     const previous = records.get(race.distance);
     if (!previous || seconds(race.finishTime) < seconds(previous.finishTime)) records.set(race.distance, race);
   }
