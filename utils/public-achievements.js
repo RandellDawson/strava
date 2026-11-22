@@ -34,7 +34,7 @@ export function validateAchievements(data) {
           !/^[a-z0-9-]+$/.test(race.id)) throw new Error('Invalid or duplicate race ID');
       raceIds.add(race.id);
       if (typeof race.race !== 'string' || !race.race.trim() ||
-          !['marathon','half-marathon','10k','5k','other'].includes(race.distance) ||
+          !['marathon','half-marathon','10k','6mi','5k','other'].includes(race.distance) ||
           typeof race.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(race.date) ||
           typeof race.finishTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.finishTime)) throw new Error('Invalid race details');
       if (!['competitor','official-pacer'].includes(race.role) || (race.pacing != null && (race.role !== 'official-pacer' || typeof race.pacing !== 'object' || typeof race.pacing.targetTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.pacing.targetTime)))) throw new Error('Invalid race role or pacing');
