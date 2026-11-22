@@ -11,7 +11,7 @@ test('initial achievements file is valid', async () => {
   assert.ok(data.races.filter(r => r.role === 'competitor').every(r => r.pacing === null));
   const pacers = data.races.filter(r => r.role === 'official-pacer');
   assert.ok(pacers.length > 0);
-  assert.ok(pacers.every(r => r.pacing && /^\\d+:\\d{2}:\\d{2}$/.test(r.pacing.targetTime)));
+  assert.ok(pacers.every(r => r.pacing && /^\d+:\d{2}:\d{2}$/.test(r.pacing.targetTime)));
   const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
   assert.deepEqual(prs, { 'half-marathon': '1:30:07', marathon: '3:12:45', '10k': '41:06', '5k': '19:29' });
 });
