@@ -68,3 +68,17 @@ test('reads achievements from ACHIEVEMENTS_DATA_PATH when configured', async () 
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('optional Strava embed tokens are validated and preserved', () => {
+  const race = {
+    id: 'embed-test', race: 'Embed Test', distance: '5k', date: '2026-11-22',
+    finishTime: '20:00', role: 'competitor',
+    placement: { overall: null, gender: null, ageGroup: null },
+    stravaActivityId: '11225273619',
+    stravaEmbedToken: 'BIUWF243x6wngbuOZbG075j-OfTi7pD2AxG_rONDLTw'
+  };
+  const document = { achievements: [], races: [race] };
+  assert.equal(validateAchievements(document), document);
+  assert.throws(() => validateAchievements({ achievements: [], races: [{ ...race, stravaEmbedToken: '<invalid>' }] }), /Invalid race Strava embed token/);
+  assert.throws(() => validateAchievements({ achievements: [], races: [{ ...race, stravaActivityId: null }] }), /Invalid race Strava embed token/);
+});
