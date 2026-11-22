@@ -58,7 +58,7 @@ test('reads achievements from ACHIEVEMENTS_DATA_PATH when configured', async () 
     assert.deepEqual(loaded.achievements, []);
     assert.equal(loaded.races.length, 1);
     assert.equal(loaded.races[0].id, 'custom-location-race');
-    assert.match(loaded.lastUpdated, /^\\d{4}-\\d{2}-\\d{2}T/);
+    assert.match(loaded.lastUpdated, /^\d{4}-\d{2}-\d{2}T/);
 
     await writeFile(file, '{ invalid json');
     await assert.rejects(loadPublicAchievements(), SyntaxError);
