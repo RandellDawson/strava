@@ -1,6 +1,11 @@
 import { readFile, stat } from 'node:fs/promises';
 
-const dataUrl = new URL('../data/running-achievements.json', import.meta.url);
+const defaultDataUrl = new URL('../data/running-achievements.json', import.meta.url);
+
+function achievementsDataPath() {
+  // Resolve at read time so tests and deployments can select their data source.
+  return process.env.ACHIEVEMENTS_DATA_PATH || defaultDataUrl;
+}
 const validPlacement = value => value == null || (
   typeof value === 'object' && !Array.isArray(value) &&
   Number.isInteger(value.place) && value.place > 0 &&
@@ -57,7 +62,8 @@ export function personalRecords(races) {
 }
 
 export async function loadPublicAchievements() {
-  const data = validateAchievements(JSON.parse(await readFile(dataUrl, 'utf8')));
-  const info = await stat(dataUrl);
+  const dataPath = achievementsDataPath();
+  const data = validateAchievements(JSON.parse(await readFile(dataPath, 'utf8')));
+  const info = await stat(dataPath);
   return { lastUpdated: info.mtime.toISOString(), ...data };
 }

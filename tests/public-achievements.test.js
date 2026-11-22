@@ -34,3 +34,37 @@ test('official pacers are excluded from competitive PRs', () => {
   const races = [{ distance: '5k', finishTime: '18:00', role: 'official-pacer' }, { distance: '5k', finishTime: '19:29', role: 'competitor' }];
   assert.equal(personalRecords(races)[0].finishTime, '19:29');
 });
+
+test('reads achievements from ACHIEVEMENTS_DATA_PATH when configured', async () => {
+  const { mkdtemp, writeFile, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const dir = await mkdtemp(join(tmpdir(), 'strava-achievements-'));
+  const previous = process.env.ACHIEVEMENTS_DATA_PATH;
+  const file = join(dir, 'achievements.json');
+  try {
+    const sample = { achievements: [], races: [{
+      id: 'custom-location-race',
+      race: 'Custom location test',
+      distance: '5k',
+      date: '2026-11-22',
+      finishTime: '20:00',
+      role: 'competitor',
+      placement: { overall: null, gender: null, ageGroup: null }
+    }] };
+    await writeFile(file, JSON.stringify(sample));
+    process.env.ACHIEVEMENTS_DATA_PATH = file;
+    const loaded = await loadPublicAchievements();
+    assert.deepEqual(loaded.achievements, []);
+    assert.equal(loaded.races.length, 1);
+    assert.equal(loaded.races[0].id, 'custom-location-race');
+    assert.match(loaded.lastUpdated, /^\d{4}-\d{2}-\d{2}T/);
+
+    await writeFile(file, '{ invalid json');
+    await assert.rejects(loadPublicAchievements(), SyntaxError);
+  } finally {
+    if (previous === undefined) delete process.env.ACHIEVEMENTS_DATA_PATH;
+    else process.env.ACHIEVEMENTS_DATA_PATH = previous;
+    await rm(dir, { recursive: true, force: true });
+  }
+});
