@@ -22,12 +22,13 @@
           "outOf": 15
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 11225273619,
       "role": "official-pacer",
       "pacing": {
         "targetTime": "1:40:00"
       },
-      "bostonQualified": false
+      "bostonQualified": false,
+      "stravaEmbedToken": "BIUWF243x6wngbuOZbG075j-OfTi7pD2AxG_rONDLTw"
     },
     {
       "id": "2024-04-06-revel-mt-charleston",
@@ -51,7 +52,7 @@
           "outOf": 139
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 11122042548,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -78,7 +79,7 @@
           "outOf": 315
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 2897991697,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -105,7 +106,7 @@
           "outOf": 23
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 2804456335,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -132,7 +133,7 @@
           "outOf": 22
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 1537424438,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": true
@@ -159,7 +160,7 @@
           "outOf": 1177
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 1301050890,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": true
@@ -186,7 +187,7 @@
           "outOf": 11
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 684225600,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -213,7 +214,7 @@
           "outOf": 42
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 666860268,
       "role": "official-pacer",
       "pacing": {
         "targetTime": "1:40:00"
@@ -242,7 +243,7 @@
           "outOf": 421
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 498779959,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -269,7 +270,7 @@
           "outOf": 490
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 445634485,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": true
@@ -296,7 +297,7 @@
           "outOf": 763
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 401752358,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -323,7 +324,7 @@
           "outOf": 75
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 397311073,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -350,7 +351,7 @@
           "outOf": 19
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 370602367,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -377,7 +378,7 @@
           "outOf": 1090
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 364351210,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -404,7 +405,7 @@
           "outOf": 9
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 424026087,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -431,7 +432,7 @@
           "outOf": 48
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 426507653,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -458,7 +459,7 @@
           "outOf": 59
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 426513203,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -485,7 +486,7 @@
           "outOf": 77
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 426513087,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -512,7 +513,7 @@
           "outOf": 401
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 426512992,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
@@ -539,7 +540,7 @@
           "outOf": 309
         }
       },
-      "stravaActivityId": null,
+      "stravaActivityId": 426525012,
       "role": "competitor",
       "pacing": null,
       "bostonQualified": false
