@@ -7,7 +7,11 @@ test('initial achievements file is valid', async () => {
   assert.deepEqual(data.achievements, []);
   assert.match(data.lastUpdated, /^\d{4}-\d{2}-\d{2}T/);
   assert.equal(data.races.length, 22);
-  assert.ok(data.races.every(r => r.role === 'competitor' && r.pacing === null));
+  assert.ok(data.races.every(r => ['competitor', 'official-pacer'].includes(r.role)));
+  assert.ok(data.races.filter(r => r.role === 'competitor').every(r => r.pacing === null));
+  const pacers = data.races.filter(r => r.role === 'official-pacer');
+  assert.ok(pacers.length > 0);
+  assert.ok(pacers.every(r => r.pacing && /^\\d+:\\d{2}:\\d{2}$/.test(r.pacing.targetTime)));
   const prs = Object.fromEntries(personalRecords(data.races).map(r => [r.distance, r.finishTime]));
   assert.deepEqual(prs, { 'half-marathon': '1:30:07', marathon: '3:12:45', '10k': '41:06', '5k': '19:29' });
 });
