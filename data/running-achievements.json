@@ -23,8 +23,10 @@
         }
       },
       "stravaActivityId": null,
-      "role": "competitor",
-      "pacing": null
+      "role": "official-pacer",
+      "pacing": {
+        "targetTime" "1:40:00"
+      }
     },
     {
       "id": "2024-04-06-revel-mt-charleston",
@@ -205,8 +207,10 @@
         }
       },
       "stravaActivityId": null,
-      "role": "competitor",
-      "pacing": null
+      "role": "official-pacer",
+      "pacing": {
+        "targetTime" "1:40:00"
+      }
     },
     {
       "id": "2016-02-20-gasparilla-distance-classic-race-weekend",
