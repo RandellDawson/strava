@@ -44,6 +44,7 @@ export function validateAchievements(data) {
           typeof race.finishTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.finishTime)) throw new Error('Invalid race details');
       if (!['competitor','official-pacer'].includes(race.role) || (race.pacing != null && (race.role !== 'official-pacer' || typeof race.pacing !== 'object' || typeof race.pacing.targetTime !== 'string' || !/^(?:\d+:)?[0-5]?\d:[0-5]\d$/.test(race.pacing.targetTime)))) throw new Error('Invalid race role or pacing');
       if (race.stravaActivityId != null && !/^\d+$/.test(String(race.stravaActivityId))) throw new Error('Invalid race Strava ID');
+      if (race.stravaEmbedToken != null && (typeof race.stravaEmbedToken !== 'string' || !/^[A-Za-z0-9_-]{10,256}$/.test(race.stravaEmbedToken) || race.stravaActivityId == null)) throw new Error('Invalid race Strava embed token');
       if (!race.placement || !['overall','gender','ageGroup'].every(k => validPlacement(race.placement[k]))) throw new Error('Invalid race placement');
     }
   }
