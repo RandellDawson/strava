@@ -26,7 +26,8 @@
       "role": "official-pacer",
       "pacing": {
         "targetTime": "1:40:00"
-      }
+      },
+      "bostonQualified": false
     },
     {
       "id": "2024-04-06-revel-mt-charleston",
@@ -52,7 +53,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2019-11-28-applied-materials-silicon-valley-turkey-trot",
@@ -78,7 +80,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2019-10-20-seven-bridges-marathon",
@@ -104,7 +107,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2018-04-28-western-pacific-marathon-half-marathon",
@@ -130,7 +134,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2017-12-03-california-international-marathon-2017",
@@ -156,7 +161,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2016-08-21-race-thru-the-redwoods",
@@ -182,7 +188,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2016-08-07-brazen-summer-breeze",
@@ -210,7 +217,8 @@
       "role": "official-pacer",
       "pacing": {
         "targetTime": "1:40:00"
-      }
+      },
+      "bostonQualified": false
     },
     {
       "id": "2016-02-20-gasparilla-distance-classic-race-weekend",
@@ -236,7 +244,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-12-06-california-international-marathon",
@@ -262,7 +271,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-09-27-rock-n-roll-san-jose",
@@ -288,7 +298,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-09-07-franklin-classic-5k-and-10k",
@@ -314,7 +325,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-08-16-race-thru-the-redwoods",
@@ -340,7 +352,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-07-26-santa-cruz-to-capitola-wharf-to-wharf-race",
@@ -366,7 +379,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-07-04-santa-cruz-firecracker-5k-and-10k",
@@ -392,7 +406,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-06-21-run-in-the-name-of-love",
@@ -418,7 +433,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-05-09-lourdes-paducah-iron-mom-half-marathon",
@@ -444,7 +460,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-04-12-santa-cruz-half-marathon",
@@ -470,7 +487,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2015-02-22-gasparilla-distance-classic-race-weekend",
@@ -496,7 +514,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2014-11-16-big-sur-half-marathon-on-monterey-bay",
@@ -522,7 +541,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2012-11-18-big-sur-half-marathon-on-monterey-bay-2",
@@ -548,7 +568,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     },
     {
       "id": "2011-11-27-space-coast-marathon-half-marathon-2",
@@ -574,7 +595,8 @@
       },
       "stravaActivityId": null,
       "role": "competitor",
-      "pacing": null
+      "pacing": null,
+      "bostonQualified": false
     }
   ],
   "achievements": []
