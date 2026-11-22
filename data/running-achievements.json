@@ -6,7 +6,7 @@
       "race": "Southern Utah Half Marathon",
       "location": "St George, UT, USA",
       "distance": "half-marathon",
-      "finishTime": "1:39:23",
+      "finishTime": "1:39:24",
       "placement": {
         "overall": {
           "place": 46,
@@ -17,8 +17,8 @@
           "outOf": 236
         },
         "ageGroup": {
-          "name": null,
-          "place": 2,
+          "name": "M50-54",
+          "place": 3,
           "outOf": 15
         }
       },
@@ -46,7 +46,7 @@
           "outOf": 967
         },
         "ageGroup": {
-          "name": null,
+          "name": "M50-54",
           "place": 103,
           "outOf": 139
         }
@@ -73,7 +73,7 @@
           "outOf": 2803
         },
         "ageGroup": {
-          "name": null,
+          "name": "M45-49",
           "place": 15,
           "outOf": 315
         }
@@ -100,7 +100,7 @@
           "outOf": 212
         },
         "ageGroup": {
-          "name": null,
+          "name": "M45-49",
           "place": 16,
           "outOf": 23
         }
@@ -127,7 +127,7 @@
           "outOf": 117
         },
         "ageGroup": {
-          "name": null,
+          "name": "M45-49",
           "place": 2,
           "outOf": 22
         }
@@ -135,7 +135,7 @@
       "stravaActivityId": null,
       "role": "competitor",
       "pacing": null,
-      "bostonQualified": false
+      "bostonQualified": true
     },
     {
       "id": "2017-12-03-california-international-marathon-2017",
@@ -154,7 +154,7 @@
           "outOf": 3748
         },
         "ageGroup": {
-          "name": null,
+          "name": "M45-49",
           "place": 110,
           "outOf": 1177
         }
@@ -162,7 +162,7 @@
       "stravaActivityId": null,
       "role": "competitor",
       "pacing": null,
-      "bostonQualified": false
+      "bostonQualified": true
     },
     {
       "id": "2016-08-21-race-thru-the-redwoods",
@@ -170,7 +170,7 @@
       "race": "Race Thru The Redwoods",
       "location": "Felton, CA, USA",
       "distance": "10k",
-      "finishTime": "45:12",
+      "finishTime": "45:13",
       "placement": {
         "overall": {
           "place": 5,
@@ -181,7 +181,7 @@
           "outOf": 106
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 1,
           "outOf": 11
         }
@@ -208,7 +208,7 @@
           "outOf": 198
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 8,
           "outOf": 42
         }
@@ -237,7 +237,7 @@
           "outOf": 2493
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 15,
           "outOf": 421
         }
@@ -264,15 +264,15 @@
           "outOf": 3039
         },
         "ageGroup": {
-          "name": null,
-          "place": 80,
+          "name": "M40-44",
+          "place": 82,
           "outOf": 490
         }
       },
       "stravaActivityId": null,
       "role": "competitor",
       "pacing": null,
-      "bostonQualified": false
+      "bostonQualified": true
     },
     {
       "id": "2015-09-27-rock-n-roll-san-jose",
@@ -291,7 +291,7 @@
           "outOf": 4260
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 32,
           "outOf": 763
         }
@@ -318,8 +318,8 @@
           "outOf": 467
         },
         "ageGroup": {
-          "name": null,
-          "place": 7,
+          "name": "M40-44",
+          "place": 9,
           "outOf": 75
         }
       },
@@ -345,7 +345,7 @@
           "outOf": 164
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 1,
           "outOf": 19
         }
@@ -360,7 +360,7 @@
       "date": "2015-07-26",
       "race": "Santa Cruz to Capitola Wharf to Wharf Race",
       "location": "Santa Cruz, CA, USA",
-      "distance": "10k",
+      "distance": "6mi",
       "finishTime": "41:06",
       "placement": {
         "overall": {
@@ -372,7 +372,7 @@
           "outOf": 5148
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-49",
           "place": 37,
           "outOf": 1090
         }
@@ -399,7 +399,7 @@
           "outOf": 140
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 6,
           "outOf": 9
         }
@@ -426,7 +426,7 @@
           "outOf": 192
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-49",
           "place": 6,
           "outOf": 48
         }
@@ -453,7 +453,7 @@
           "outOf": 161
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-49",
           "place": 8,
           "outOf": 59
         }
@@ -480,7 +480,7 @@
           "outOf": 302
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-49",
           "place": 8,
           "outOf": 77
         }
@@ -507,7 +507,7 @@
           "outOf": 2412
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 41,
           "outOf": 401
         }
@@ -534,7 +534,7 @@
           "outOf": 2375
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 37,
           "outOf": 309
         }
@@ -550,7 +550,7 @@
       "race": "Big Sur Half Marathon on Monterey Bay 2...",
       "location": "Monterey, CA, USA",
       "distance": "half-marathon",
-      "finishTime": "1:41:10",
+      "finishTime": "1:41:11",
       "placement": {
         "overall": {
           "place": 422,
@@ -561,7 +561,7 @@
           "outOf": 2515
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 37,
           "outOf": 359
         }
@@ -588,7 +588,7 @@
           "outOf": 494
         },
         "ageGroup": {
-          "name": null,
+          "name": "M40-44",
           "place": 26,
           "outOf": 91
         }
