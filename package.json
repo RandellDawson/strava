@@ -25,12 +25,15 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "node-fetch": "^3.2.10",
-    "puppeteer": "^16.2.0"
+    "puppeteer": "^25.18.1"
   },
   "type": "module",
   "devDependencies": {
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "mocha": "^10.0.0"
+    "mocha": "^12.0.3"
+  },
+  "allowScripts": {
+    "puppeteer@25.18.1": true
   }
 }

@@ -1,6 +1,8 @@
 import puppeteer from 'puppeteer';
 import { constants, authorize, getActivities } from './index.js';
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const loginToStrava = async (page) => {
   const needsToAcceptCookies = await page.$('button.btn-accept-cookie-banner');
 
@@ -17,17 +19,17 @@ const loginToStrava = async (page) => {
 
 const makeActivityPublic = async (page, id, name, date) => {
   await page.goto(`https://www.strava.com/activities/${id}/edit`);
-  await page.waitForTimeout(2000);
+  await sleep(2000);
   await page.evaluate(() => {
     const radio = document.querySelector('input[type=radio][value=followers_only]');
     radio.click();
   });
 
-  await page.waitForTimeout(2000);
+  await sleep(2000);
   await page.waitForSelector('.header > .container > .media > .media-right > .btn');
   await page.click('.header > .container > .media > .media-right > .btn');
   console.log({ date, id, name });
-  await page.waitForTimeout(5000);
+  await sleep(5000);
 };
 
 const getNonPublicActivities = async (num) => {
@@ -52,19 +54,23 @@ const makeActivitiesPublic = async (num) => {
 
   if (activities.length) {
     const browser = await puppeteer.launch({
-      args: [
-        '--incognito'
-      ]
+      headless: true,
+      args: ['--incognito']
     });
-    const page = await browser.newPage();
-    await page.goto('https://www.strava.com/dashboard');
-    await page.setViewport({ width: 1920, height: 956 });
-    await loginToStrava(page);
-    await page.waitForTimeout(2000);
-    for (const { id, name, localDateTime } of activities) {
-      await makeActivityPublic(page, id, name, localDateTime);
+
+    try {
+      const page = await browser.newPage();
+      await page.goto('https://www.strava.com/dashboard');
+      await page.setViewport({ width: 1920, height: 956 });
+      await loginToStrava(page);
+      await sleep(2000);
+
+      for (const { id, name, localDateTime } of activities) {
+        await makeActivityPublic(page, id, name, localDateTime);
+      }
+    } finally {
+      await browser.close();
     }
-    await browser.close();
   }
   console.log(`finished changing visibility of ${activities.length} activities`);
 };
